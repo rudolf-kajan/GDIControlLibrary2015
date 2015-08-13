@@ -60,8 +60,8 @@ namespace ControlLibrary.DrawComponents
                 : (yDelta > 0 ? DragDirection.Down : DragDirection.Up);
 
             OnInputRecognized?.Invoke(InputType.Drag, _beginArgs, e, direction);
+
+            _beginArgs = e;
         }
     }
-
-    
 }

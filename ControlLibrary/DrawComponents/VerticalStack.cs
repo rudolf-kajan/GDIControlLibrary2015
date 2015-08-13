@@ -14,7 +14,9 @@ namespace ControlLibrary.DrawComponents
     class VerticalStack : DrawComponent, IInputEnabled, IComponentContainer
     {
         private readonly List<DrawComponent> _drawComponents;
-        private int _stackVerticalOffset;
+        private int _heightOfAllChildren;
+
+        private int _scrollOffset = 0;
 
         public VerticalStack(Size size)
         {
@@ -24,17 +26,27 @@ namespace ControlLibrary.DrawComponents
 
         public void SetContentOffset(int contentOffset)
         {
+            // prevents scrolling past content borders
+            if (_scrollOffset + contentOffset > 0)
+                return;
+
+            if (_scrollOffset + contentOffset <= Size.Height - _heightOfAllChildren)
+                return;
+            ///////////////////////////////////////////
+
+            _scrollOffset += contentOffset;
+
             foreach (DrawComponent drawComponent in _drawComponents)
                 drawComponent.Offset.Height += contentOffset;
         }
 
         public void AddChild(DrawComponent drawComponent)
         {
-            drawComponent.Offset.Height = _stackVerticalOffset;
+            drawComponent.Offset.Height = _heightOfAllChildren;
             drawComponent.Resize(new Size(Size.Width, drawComponent.Size.Height));
 
             _drawComponents.Add(drawComponent);
-            _stackVerticalOffset += drawComponent.Size.Height;
+            _heightOfAllChildren += drawComponent.Size.Height;
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
@@ -57,7 +69,6 @@ namespace ControlLibrary.DrawComponents
                         return InputResult.Consumed;
                 }
             }
-
 
             // try to consume the gesture by myself
             if (inputType == InputType.Drag)
