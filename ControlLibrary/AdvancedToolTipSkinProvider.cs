@@ -34,7 +34,7 @@ namespace ControlLibrary
         public BlackToolTipSkin()
         {
             PrimaryFont = new Font("Calibri", 12);
-            SecondaryFont = new Font("Calibri", 9, FontStyle.Italic);
+            SecondaryFont = new Font("Calibri", 10, FontStyle.Italic);
             SmallFont = new Font("Calibri", 9);
 
 

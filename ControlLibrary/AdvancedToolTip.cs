@@ -140,13 +140,17 @@ namespace ControlLibrary
 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            base.OnPaint(pe);
+            //base.OnPaint(pe);
 
             pe.Graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
             pe.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
             foreach (DrawComponent drawComponent in _drawComponents)
                 drawComponent.OnPaint(pe, _skin);
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
         }
 
         private void AdvancedToolTip_MouseDown(object sender, MouseEventArgs e)
