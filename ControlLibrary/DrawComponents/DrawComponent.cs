@@ -153,29 +153,6 @@ namespace ControlLibrary.DrawComponents
         }
     }
 
-    class ImageGalleryPreviewComponent : DrawComponent
-    {
-        public List<Image> Icons;
-
-        public ImageGalleryPreviewComponent()
-        {
-            Size.Height = 96;
-        }
-
-        public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
-        {
-            for (int i = 0; i < Icons.Count; i++)
-            {
-                Image image = Icons[i];
-                pe.Graphics.DrawImage(image, new Rectangle(
-                        (10 + i * 100),         // X
-                        Offset.Height + 10,         // Y
-                        90,                         // Width
-                        Size.Height - 2 * 10));       // Height
-            }
-        }
-    }
-
     class IconActionBarComponent : DrawComponent
     {
         public List<Image> Icons;

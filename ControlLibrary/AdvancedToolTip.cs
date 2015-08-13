@@ -89,7 +89,7 @@ namespace ControlLibrary
             {
                 Icons = new List<Image>
                 {
-                    Resource.Snow0, Resource.Snow1, Resource.Snow2,
+                    Resource.Snow0, Resource.Snow1, Resource.Snow2, Resource.Snow0, Resource.Snow1, Resource.Snow2
                 }
             });
 

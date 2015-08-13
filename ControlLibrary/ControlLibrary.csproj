@@ -83,6 +83,7 @@
     <Compile Include="DrawComponents\DrawComponent.cs" />
     <Compile Include="DrawComponentsHelpers\MouseGestureRecognizer.cs" />
     <Compile Include="DrawComponentsHelpers\Utils.cs" />
+    <Compile Include="DrawComponents\ImageGalleryPreviewComponent.cs" />
     <Compile Include="DrawComponents\VerticalStack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
