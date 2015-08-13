@@ -22,7 +22,7 @@ namespace ControlLibrary
             #region Set Visual Style hints
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.ContainerControl, false);
-            
+
             // User control is not drawn if "OptimizedDoubleBuffer" is true.
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
@@ -30,7 +30,7 @@ namespace ControlLibrary
             SetStyle(ControlStyles.Opaque, true);
             #endregion
 
-#region Set up mouse gesture recognizer
+            #region Set up mouse gesture recognizer
             _mouseGestureRecognizer = new MouseGestureRecognizer();
             _mouseGestureRecognizer.OnInputRecognized += MouseInputRecognized;
 #endregion

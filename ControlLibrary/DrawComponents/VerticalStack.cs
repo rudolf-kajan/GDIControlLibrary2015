@@ -24,7 +24,8 @@ namespace ControlLibrary.DrawComponents
 
         public void SetContentOffset(int contentOffset)
         {
-            _stackVerticalOffset = contentOffset;
+            foreach (DrawComponent drawComponent in _drawComponents)
+                drawComponent.Offset.Height += contentOffset;
         }
 
         public void AddChild(DrawComponent drawComponent)
@@ -62,10 +63,10 @@ namespace ControlLibrary.DrawComponents
             if (inputType == InputType.Drag)
             {
                 if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Down)
-                    this._stackVerticalOffset += 5;
+                    SetContentOffset(7);
 
                 if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Up)
-                    this._stackVerticalOffset -= 5;
+                    SetContentOffset(-7);
 
                 return InputResult.Consumed;
             }
