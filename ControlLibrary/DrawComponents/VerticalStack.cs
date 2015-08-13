@@ -28,10 +28,14 @@ namespace ControlLibrary.DrawComponents
         {
             // prevents scrolling past content borders
             if (_scrollOffset + contentOffset > 0)
-                return;
+            {
+                contentOffset -= _scrollOffset + contentOffset;
+            }
 
             if (_scrollOffset + contentOffset <= Size.Height - _heightOfAllChildren)
-                return;
+            {
+                contentOffset = (Size.Height - _heightOfAllChildren) - _scrollOffset;
+            }
             ///////////////////////////////////////////
 
             _scrollOffset += contentOffset;

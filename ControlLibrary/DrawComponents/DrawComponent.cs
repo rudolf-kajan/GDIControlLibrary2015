@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -151,31 +152,6 @@ namespace ControlLibrary.DrawComponents
 
             drawFormat.Dispose();
         }
-    }
-
-    class IconActionBarComponent : DrawComponent
-    {
-        public List<Image> Icons;
-
-        public IconActionBarComponent()
-        {
-            Size.Height = 48;
-        }
-
-        public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
-        {
-            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(0, Offset.Height, pe.ClipRectangle.Width, Offset.Height + Size.Height));
-
-            for (int i = 0; i < Icons.Count; i++)
-            {
-                Image image = Icons[i];
-                pe.Graphics.DrawImage(image, new Rectangle(
-                        (10 + i * 72),         // X
-                        Offset.Height + 10,         // Y
-                        32,                         // Width
-                        32));                       // Height
-            }
-        }        
     }
 
     class IconLabelComponent : LabelComponent

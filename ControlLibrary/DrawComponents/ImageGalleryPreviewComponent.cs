@@ -44,16 +44,14 @@ namespace ControlLibrary.DrawComponents
             if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Left)
             {
                 SetContentOffset(endArgs.X - beginArgs.X);
-                return InputResult.Consumed;
             }
 
             if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Right)
             {
                 SetContentOffset(endArgs.X - beginArgs.X);
-                return InputResult.Consumed;
             }
 
-            return InputResult.Bubble;
+            return InputResult.Consumed;
         }
 
         

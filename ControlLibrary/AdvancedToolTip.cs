@@ -49,7 +49,6 @@ namespace ControlLibrary
         {
             // apply basic formatting in the form of vertical stack
             VerticalStack verticalStack = new VerticalStack(new Size(Width, Height));
-            verticalStack.SetContentOffset(0);
 
             verticalStack.AddChild(new TooltipHeader());
 
@@ -110,6 +109,13 @@ namespace ControlLibrary
                 Icons = new List<Image>
                 {
                     Resource.Open_Folder_100, Resource.Checked_Checkbox_2_100, Resource.More_100
+                },
+
+                Actions = new List<Action>
+                {
+                    (()=> { MessageBox.Show(@"Fired action #1"); }),
+                    (()=> { MessageBox.Show(@"Fired action #2"); }),
+                    (()=> { MessageBox.Show(@"Fired action #3"); }),
                 }
             });
 
