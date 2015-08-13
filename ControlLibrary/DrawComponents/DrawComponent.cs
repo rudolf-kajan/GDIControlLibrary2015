@@ -18,7 +18,7 @@ namespace ControlLibrary.DrawComponents
 
     public interface IInputEnabled
     {
-        InputResult OnInput(InputType inputType, MouseEventArgs e, object args);
+        InputResult OnInput(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args);
     }
 
     public interface IComponentContainer
@@ -95,7 +95,7 @@ namespace ControlLibrary.DrawComponents
             drawFormat.Dispose();
         }
 
-        public InputResult OnInput(InputType inputType, MouseEventArgs e, object args)
+        public InputResult OnInput(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args)
         {
             if (inputType == InputType.Click)
             {

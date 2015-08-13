@@ -36,20 +36,20 @@ namespace ControlLibrary.DrawComponents
             _horizContentOffset += offsetDelta;
         }
 
-        public InputResult OnInput(InputType inputType, MouseEventArgs e, object args)
+        public InputResult OnInput(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args)
         {
             if (inputType != InputType.Drag)
                 return InputResult.Bubble;
 
             if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Left)
             {
-                SetContentOffset(-10);
+                SetContentOffset(endArgs.X - beginArgs.X);
                 return InputResult.Consumed;
             }
 
             if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Right)
             {
-                SetContentOffset(10);
+                SetContentOffset(endArgs.X - beginArgs.X);
                 return InputResult.Consumed;
             }
 

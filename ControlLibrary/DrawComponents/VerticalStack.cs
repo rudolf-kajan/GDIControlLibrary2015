@@ -45,13 +45,13 @@ namespace ControlLibrary.DrawComponents
                 drawComponent.OnPaint(pe, skin);
         }
 
-        public InputResult OnInput(InputType inputType, MouseEventArgs mouseEventArgs, object args)
+        public InputResult OnInput(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args)
         {
             foreach (DrawComponent drawComponent in _drawComponents)
             {
-                if (drawComponent is IInputEnabled && Utils.IsInputStartInBounds(drawComponent, mouseEventArgs))
+                if (drawComponent is IInputEnabled && Utils.IsInputStartInBounds(drawComponent, beginArgs))
                 {
-                    InputResult result = (drawComponent as IInputEnabled).OnInput(inputType, mouseEventArgs, args);
+                    InputResult result = (drawComponent as IInputEnabled).OnInput(inputType, beginArgs, endArgs, args);
 
                     if (result == InputResult.Consumed)
                         return InputResult.Consumed;
@@ -63,10 +63,10 @@ namespace ControlLibrary.DrawComponents
             if (inputType == InputType.Drag)
             {
                 if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Down)
-                    SetContentOffset(7);
+                    SetContentOffset(endArgs.Y - beginArgs.Y);
 
                 if ((args as DragDirection? ?? DragDirection.Left) == DragDirection.Up)
-                    SetContentOffset(-7);
+                    SetContentOffset(endArgs.Y - beginArgs.Y);
 
                 return InputResult.Consumed;
             }

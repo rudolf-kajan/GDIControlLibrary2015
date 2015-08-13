@@ -160,13 +160,13 @@ namespace ControlLibrary
             _mouseGestureRecognizer.OnMouseMove(sender, e);
         }
 
-        private void MouseInputRecognized(InputType inputType, MouseEventArgs e, object args)
+        private void MouseInputRecognized(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args)
         {
             foreach (DrawComponent drawComponent in _drawComponents)
             {
-                if (drawComponent is IInputEnabled && Utils.IsInputStartInBounds(drawComponent, e))
+                if (drawComponent is IInputEnabled && Utils.IsInputStartInBounds(drawComponent, beginArgs))
                 {
-                    InputResult result = (drawComponent as IInputEnabled).OnInput(inputType, e, args);
+                    InputResult result = (drawComponent as IInputEnabled).OnInput(inputType, beginArgs, endArgs, args);
                     Refresh();
 
                     if (result == InputResult.Consumed)

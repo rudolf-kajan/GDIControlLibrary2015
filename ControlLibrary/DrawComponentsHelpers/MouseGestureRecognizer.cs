@@ -20,18 +20,18 @@ namespace ControlLibrary.DrawComponents
     
     class MouseGestureRecognizer
     {
-        internal delegate void InputRecognized(InputType inputType, MouseEventArgs mouseArgs, object args);
+        internal delegate void InputRecognized(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args);
         public event InputRecognized OnInputRecognized;
 
 
-        private MouseEventArgs _prevArgs;
+        private MouseEventArgs _beginArgs;
         private DateTime _timestamp;
 
         private bool _isMouseDown = false;
 
         public void OnMouseDown(object sender, MouseEventArgs e)
         {
-            _prevArgs = e;
+            _beginArgs = e;
             _timestamp = DateTime.Now;
             _isMouseDown = true;
         }
@@ -42,7 +42,7 @@ namespace ControlLibrary.DrawComponents
 
             if (DateTime.Now - _timestamp < new TimeSpan(0, 0, 0, 0, 500))
             {
-                OnInputRecognized?.Invoke(InputType.Click, e, null);
+                OnInputRecognized?.Invoke(InputType.Click, _beginArgs, e, null);
                 return;
             }
         }
@@ -52,14 +52,14 @@ namespace ControlLibrary.DrawComponents
             if(!_isMouseDown || OnInputRecognized == null)
                 return;
 
-            float xDelta = e.X - _prevArgs.X;
-            float yDelta = e.Y - _prevArgs.Y;
+            float xDelta = e.X - _beginArgs.X;
+            float yDelta = e.Y - _beginArgs.Y;
 
             var direction = Math.Abs(xDelta) > Math.Abs(yDelta)
                 ? (xDelta > 0 ? DragDirection.Right : DragDirection.Left)
                 : (yDelta > 0 ? DragDirection.Down : DragDirection.Up);
 
-            OnInputRecognized?.Invoke(InputType.Drag, e, direction);
+            OnInputRecognized?.Invoke(InputType.Drag, _beginArgs, e, direction);
         }
     }
 
