@@ -48,7 +48,7 @@ namespace ControlLibrary
         }
     }
 
-    class MaterialBlueTipSkin : ISkinProvider
+    class MaterialBlueSkin : ISkinProvider
     {
         public Font PrimaryFont { get; set; }
         public Font SecondaryFont { get; set; }
@@ -62,7 +62,7 @@ namespace ControlLibrary
 
         public SolidBrush Background { get; set; }
 
-        public MaterialBlueTipSkin()
+        public MaterialBlueSkin()
         {
             PrimaryFont = new Font("Roboto-Regular", 12);
             SecondaryFont = new Font("Roboto-Regular", 9, FontStyle.Bold);
@@ -79,7 +79,7 @@ namespace ControlLibrary
         }
     }
 
-    class MaterialOrangeTipSkin : ISkinProvider
+    class MaterialOrangeSkin : ISkinProvider
     {
         public Font PrimaryFont { get; set; }
         public Font SecondaryFont { get; set; }
@@ -93,7 +93,7 @@ namespace ControlLibrary
 
         public SolidBrush Background { get; set; }
 
-        public MaterialOrangeTipSkin()
+        public MaterialOrangeSkin()
         {
             PrimaryFont = new Font("Roboto-Regular", 12);
             SecondaryFont = new Font("Roboto-Regular", 9, FontStyle.Bold);

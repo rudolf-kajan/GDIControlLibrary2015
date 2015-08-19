@@ -34,21 +34,37 @@ namespace ControlLibrary.DrawComponents
     /// </summary>
     public abstract class DrawComponent
     {
-        public Size Offset = Size.Empty;
-        public Size Size = new Size(120, 24);
-        public Padding Margin = new Padding(10,10,10,10);
+        
+
+        private Size _size;
+        public Size Size
+        {
+            get { return _size; }
+            set { _size = value; OnResize();}
+        }
+
+        private Point _offset;
+        public Point Offset
+        {
+            get { return _offset; }
+            set { _offset = value; OnReposition(); }
+        }
+
+        private Padding _margin = new Padding(10);
+        public Padding Margin
+        {
+            get { return _margin; }
+            set { _margin = value; OnRemargin(); }
+        }
+
+        private void OnResize(){}
+        private void OnReposition(){}
+        private void OnRemargin(){}
+
+        public byte ZOrder { get; set; }
         
         public abstract void OnPaint(PaintEventArgs pe, ISkinProvider skin);
-        
-
-        public void Resize(Size size)
-        {
-            Size = size;
-        }
     }
-
-
-    
 
     /// <summary>
     /// Simple header/footer
@@ -57,12 +73,13 @@ namespace ControlLibrary.DrawComponents
     {
         public TooltipHeader()
         {
-            Size.Height = 12;
+            Size = new Size(Size.Width, 12);
+            Margin = Padding.Empty;
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
-            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(0, 0, pe.ClipRectangle.Width, Offset.Height + Size.Height));
+            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(Offset.X, Offset.Y, Offset.X + Size.Width, Offset.Y + Size.Height));
         }
     }
 
@@ -77,19 +94,19 @@ namespace ControlLibrary.DrawComponents
 
         public ToggleComponent()
         {
-            Size.Height = 48;
+            Size = new Size(Size.Width, 48);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
             StringFormat drawFormat = new StringFormat();
-            pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Height + Margin.Top, drawFormat);
+            pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Y + Margin.Top, drawFormat);
 
             Image toggleImage = ToggleState == ToggleStateEnum.On ? Resource.toggle_on : Resource.toggle_off;
 
             pe.Graphics.DrawImage(toggleImage, new Rectangle
                 (Size.Width - toggleImage.Width / 4 - Margin.Right,   // X
-                 Offset.Height + Margin.Top,                          // Y
+                 Offset.Y + Margin.Top,                          // Y
                  toggleImage.Width / 4,                               // Width
                  toggleImage.Height / 4));                            // Height
 
@@ -118,15 +135,15 @@ namespace ControlLibrary.DrawComponents
 
         public LabelComponent()
         {
-            Size.Height = 48;
+            Size = new Size(Size.Width, 48);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
             StringFormat drawFormat = new StringFormat();
 
-            pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Height + Margin.Top, drawFormat);
-            pe.Graphics.DrawString(TextValue, skin.SecondaryFont, skin.SecondaryFontColor, Size.Width - TextRenderer.MeasureText(TextValue, skin.SecondaryFont).Width - Margin.Left, Offset.Height + Margin.Top, drawFormat);
+            pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Y + Margin.Top, drawFormat);
+            pe.Graphics.DrawString(TextValue, skin.SecondaryFont, skin.SecondaryFontColor, Size.Width - TextRenderer.MeasureText(TextValue, skin.SecondaryFont).Width - Margin.Left, Offset.Y + Margin.Top, drawFormat);
 
             drawFormat.Dispose();
         }
@@ -139,16 +156,16 @@ namespace ControlLibrary.DrawComponents
 
         public DescriptionComponent()
         {
-            Size.Height = 196;
+            Size = new Size(Size.Width, 196);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
             StringFormat drawFormat = new StringFormat();
 
-            pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Height + Margin.Top, drawFormat);
+            pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Y + Margin.Top, drawFormat);
             pe.Graphics.DrawString(TextValue, skin.SecondaryFont, skin.SecondaryFontColor,
-                new RectangleF(Margin.Left, Offset.Height + 3 * Margin.Top, Size.Width - Margin.Left, Size.Height - 3 * Margin.Top));
+                new RectangleF(Margin.Left, Offset.Y + 3 * Margin.Top, Size.Width - Margin.Left, Size.Height - 3 * Margin.Top));
 
             drawFormat.Dispose();
         }
@@ -164,13 +181,13 @@ namespace ControlLibrary.DrawComponents
 
             pe.Graphics.DrawImage(Icon, new Rectangle
                 (Margin.Left,                          // X
-                 Offset.Height + Margin.Top,                // Y
+                 Offset.Y + Margin.Top,                // Y
                  Icon.Width / 4,                   // Width
                  Icon.Height / 4));                // Height
 
-            pe.Graphics.DrawString(TextLabel, skin.SmallFont, skin.PrimaryFontColor, 4 * Margin.Left, Offset.Height + 1.5f * Margin.Top, drawFormat);
+            pe.Graphics.DrawString(TextLabel, skin.SmallFont, skin.PrimaryFontColor, 4 * Margin.Left, Offset.Y + 1.5f * Margin.Top, drawFormat);
             pe.Graphics.DrawString(TextValue, skin.SmallFont, skin.SecondaryFontColor, 
-                Size.Width - TextRenderer.MeasureText(TextValue, skin.SecondaryFont).Width - Margin.Left, Offset.Height + 1.5f * Margin.Top, drawFormat);
+                Size.Width - TextRenderer.MeasureText(TextValue, skin.SecondaryFont).Width - Margin.Left, Offset.Y + 1.5f * Margin.Top, drawFormat);
 
             drawFormat.Dispose();
         }

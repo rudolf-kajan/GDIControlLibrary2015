@@ -15,7 +15,6 @@ namespace ControlLibrary.DrawComponents
     {
         private readonly List<DrawComponent> _drawComponents;
         private int _heightOfAllChildren;
-
         private int _scrollOffset = 0;
 
         public VerticalStack(Size size)
@@ -41,22 +40,24 @@ namespace ControlLibrary.DrawComponents
             _scrollOffset += contentOffset;
 
             foreach (DrawComponent drawComponent in _drawComponents)
-                drawComponent.Offset.Height += contentOffset;
+                drawComponent.Offset =  new Point(drawComponent.Offset.X, drawComponent.Offset.Y + contentOffset);
         }
 
         public void AddChild(DrawComponent drawComponent)
         {
-            drawComponent.Offset.Height = _heightOfAllChildren;
-            drawComponent.Resize(new Size(Size.Width, drawComponent.Size.Height));
+            drawComponent.Offset = new Point(drawComponent.Offset.X, _heightOfAllChildren);
+            drawComponent.Size   = new Size(Size.Width, drawComponent.Size.Height);
 
             _drawComponents.Add(drawComponent);
             _heightOfAllChildren += drawComponent.Size.Height;
+
+            _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
-            pe.Graphics.FillRectangle(skin.Background, new Rectangle(Offset.Width, Offset.Height, Size.Width, Size.Height));
-
+            pe.Graphics.FillRectangle(skin.Background, new Rectangle(Offset.X, Offset.Y, Size.Width, Size.Height));
+            
             foreach (DrawComponent drawComponent in _drawComponents)
                 drawComponent.OnPaint(pe, skin);
         }

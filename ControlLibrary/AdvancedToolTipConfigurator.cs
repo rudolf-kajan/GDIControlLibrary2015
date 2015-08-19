@@ -26,10 +26,10 @@ namespace ControlLibrary
                     _advancedToolTip.ChangeSkin(new BlackToolTipSkin());
                     break;
                 case 1:
-                    _advancedToolTip.ChangeSkin(new MaterialBlueTipSkin());
+                    _advancedToolTip.ChangeSkin(new MaterialBlueSkin());
                     break;
                 case 2:
-                    _advancedToolTip.ChangeSkin(new MaterialOrangeTipSkin());
+                    _advancedToolTip.ChangeSkin(new MaterialOrangeSkin());
                     break;
             }
         }

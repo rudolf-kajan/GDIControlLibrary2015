@@ -14,19 +14,19 @@ namespace ControlLibrary.DrawComponents
 
         public IconActionBarComponent()
         {
-            Size.Height = 48;
+            Size = new Size(Size.Width, 48);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
-            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(0, Offset.Height, pe.ClipRectangle.Width, Offset.Height + Size.Height));
+            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(0, Offset.Y, pe.ClipRectangle.Width, Offset.Y + Size.Height));
 
             for (int i = 0; i < Icons.Count; i++)
             {
                 Image image = Icons[i];
                 pe.Graphics.DrawImage(image, new Rectangle(
                         (10 + i * 72),         // X
-                        Offset.Height + 10,         // Y
+                        Offset.Y + 10,         // Y
                         32,                         // Width
                         32));                       // Height
             }

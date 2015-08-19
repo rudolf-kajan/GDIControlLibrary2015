@@ -33,7 +33,7 @@ namespace ControlLibrary
             _mouseGestureRecognizer.OnInputRecognized += MouseInputRecognized;
 #endregion
 
-            ChangeSkin(new BlackToolTipSkin());
+            ChangeSkin(new MaterialOrangeSkin());
 
             // http://stackoverflow.com/questions/22735174/how-to-write-winforms-code-that-auto-scales-to-system-font-and-dpi-settings
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -48,7 +48,7 @@ namespace ControlLibrary
         private void AddIndividualComponents()
         {
             // apply basic formatting in the form of vertical stack
-            VerticalStack verticalStack = new VerticalStack(new Size(Width, Height));
+            VerticalStack verticalStack = new VerticalStack(new Size(Width, 400));
 
             verticalStack.AddChild(new TooltipHeader());
 
@@ -119,7 +119,14 @@ namespace ControlLibrary
                 }
             });
 
-            AddChild(verticalStack);
+
+            VerticalStack topStack = new VerticalStack(new Size(Width, Height));
+
+            topStack.AddChild(new TooltipHeader { Size = new Size(Width, 50), ZOrder = 1 });
+            topStack.AddChild(verticalStack);
+            topStack.AddChild(new TooltipHeader { Size = new Size(Width, 50), ZOrder = 1 });
+
+            AddChild(topStack);
         }
 
         public void ChangeSkin(ISkinProvider skin)

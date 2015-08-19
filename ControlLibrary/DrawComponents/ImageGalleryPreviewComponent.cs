@@ -15,7 +15,7 @@ namespace ControlLibrary.DrawComponents
 
         public ImageGalleryPreviewComponent()
         {
-            Size.Height = 96;
+            Size = new Size(Size.Width, 96);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
@@ -25,7 +25,7 @@ namespace ControlLibrary.DrawComponents
                 Image image = Icons[i];
                 pe.Graphics.DrawImage(image, new Rectangle(
                         (Margin.Left + _horizContentOffset + i * 100),            // X
-                        Offset.Height + Margin.Top,         // Y
+                        Offset.Y + Margin.Top,         // Y
                         90,                                 // Width
                         Size.Height - 2 * Margin.Top));     // Height
             }
