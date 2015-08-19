@@ -83,7 +83,7 @@ namespace ControlLibrary.DrawComponents
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
-            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(Offset.X, Offset.Y, Offset.X + Size.Width, Offset.Y + Size.Height));
+            pe.Graphics.FillRectangle(skin.AccentColor, new Rectangle(Offset.X, Offset.Y, Size.Width, Size.Height));
         }
     }
 
