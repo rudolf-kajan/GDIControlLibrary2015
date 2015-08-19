@@ -23,26 +23,6 @@ namespace ControlLibrary.DrawComponents
             Size = size;
         }
 
-        public void SetContentOffset(int contentOffset)
-        {
-            // prevents scrolling past content borders
-            if (_scrollOffset + contentOffset > 0)
-            {
-                contentOffset -= _scrollOffset + contentOffset;
-            }
-
-            if (_scrollOffset + contentOffset <= Size.Height - _heightOfAllChildren)
-            {
-                contentOffset = (Size.Height - _heightOfAllChildren) - _scrollOffset;
-            }
-            ///////////////////////////////////////////
-
-            _scrollOffset += contentOffset;
-
-            foreach (DrawComponent drawComponent in _drawComponents)
-                drawComponent.Offset =  new Point(drawComponent.Offset.X, drawComponent.Offset.Y + contentOffset);
-        }
-
         public void AddChild(DrawComponent drawComponent)
         {
             drawComponent.Offset = new Point(drawComponent.Offset.X, _heightOfAllChildren);
@@ -52,6 +32,11 @@ namespace ControlLibrary.DrawComponents
             _heightOfAllChildren += drawComponent.Size.Height;
 
             _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
+        }
+
+        public void ClearChildren(DrawComponent drawComponent)
+        {
+            _drawComponents.Clear();
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
@@ -88,6 +73,26 @@ namespace ControlLibrary.DrawComponents
             }
 
             return InputResult.Bubble;
+        }
+
+        private void SetContentOffset(int contentOffset)
+        {
+            // prevents scrolling past content borders
+            if (_scrollOffset + contentOffset > 0)
+            {
+                contentOffset -= _scrollOffset + contentOffset;
+            }
+
+            if (_scrollOffset + contentOffset <= Size.Height - _heightOfAllChildren)
+            {
+                contentOffset = (Size.Height - _heightOfAllChildren) - _scrollOffset;
+            }
+            ///////////////////////////////////////////
+
+            _scrollOffset += contentOffset;
+
+            foreach (DrawComponent drawComponent in _drawComponents)
+                drawComponent.Offset = new Point(drawComponent.Offset.X, drawComponent.Offset.Y + contentOffset);
         }
 
         protected override void OnReposition(Point repositionDelta)

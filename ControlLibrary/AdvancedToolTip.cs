@@ -50,7 +50,7 @@ namespace ControlLibrary
             // apply basic formatting in the form of vertical stack
             VerticalStack verticalStack = new VerticalStack(new Size(Width, 400));
 
-            verticalStack.AddChild(new TooltipHeader());
+            verticalStack.AddChild(new HeaderComponent());
 
             verticalStack.AddChild(new ToggleComponent
             {
@@ -122,9 +122,9 @@ namespace ControlLibrary
 
             VerticalStack topStack = new VerticalStack(new Size(Width, Height));
 
-            topStack.AddChild(new TooltipHeader { Size = new Size(Width, 50), ZOrder = 1 });
+            topStack.AddChild(new HeaderComponent { Size = new Size(Width, 50), ZOrder = 1 });
             topStack.AddChild(verticalStack);
-            topStack.AddChild(new TooltipHeader { Size = new Size(Width, 50), ZOrder = 1 });
+            topStack.AddChild(new HeaderComponent { Size = new Size(Width, 50), ZOrder = 1 });
 
             AddChild(topStack);
         }

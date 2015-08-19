@@ -80,11 +80,16 @@
       <DependentUpon>AdvancedToolTipConfigurator.cs</DependentUpon>
     </Compile>
     <Compile Include="AdvancedToolTipSkinProvider.cs" />
+    <Compile Include="DrawComponents\DescriptionComponent.cs" />
     <Compile Include="DrawComponents\DrawComponent.cs" />
     <Compile Include="DrawComponentsHelpers\MouseGestureRecognizer.cs" />
     <Compile Include="DrawComponentsHelpers\Utils.cs" />
+    <Compile Include="DrawComponents\HeaderComponent.cs" />
     <Compile Include="DrawComponents\IconActionBarComponent.cs" />
+    <Compile Include="DrawComponents\IconLabelComponent.cs" />
     <Compile Include="DrawComponents\ImageGalleryPreviewComponent.cs" />
+    <Compile Include="DrawComponents\LabelComponent.cs" />
+    <Compile Include="DrawComponents\ToggleComponent.cs" />
     <Compile Include="DrawComponents\VerticalStack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
