@@ -24,7 +24,7 @@ namespace ControlLibrary.DrawComponents
 
     public interface IComponentContainer
     {
-        
+
     }
 
 
@@ -34,20 +34,22 @@ namespace ControlLibrary.DrawComponents
     /// </summary>
     public abstract class DrawComponent
     {
-        
-
         private Size _size;
         public Size Size
         {
             get { return _size; }
-            set { _size = value; OnResize();}
+            set { _size = value; OnResize(); }
         }
 
         private Point _offset;
         public Point Offset
         {
             get { return _offset; }
-            set { _offset = value; OnReposition(); }
+            set
+            {
+                OnReposition(value - (Size)_offset);
+                _offset = value;
+            }
         }
 
         private Padding _margin = new Padding(10);
@@ -57,12 +59,14 @@ namespace ControlLibrary.DrawComponents
             set { _margin = value; OnRemargin(); }
         }
 
-        private void OnResize(){}
-        private void OnReposition(){}
-        private void OnRemargin(){}
+        protected virtual void OnResize() { }
+
+        protected virtual void OnReposition(Point point) { }
+
+        protected virtual void OnRemargin() { }
 
         public byte ZOrder { get; set; }
-        
+
         public abstract void OnPaint(PaintEventArgs pe, ISkinProvider skin);
     }
 
@@ -186,7 +190,7 @@ namespace ControlLibrary.DrawComponents
                  Icon.Height / 4));                // Height
 
             pe.Graphics.DrawString(TextLabel, skin.SmallFont, skin.PrimaryFontColor, 4 * Margin.Left, Offset.Y + 1.5f * Margin.Top, drawFormat);
-            pe.Graphics.DrawString(TextValue, skin.SmallFont, skin.SecondaryFontColor, 
+            pe.Graphics.DrawString(TextValue, skin.SmallFont, skin.SecondaryFontColor,
                 Size.Width - TextRenderer.MeasureText(TextValue, skin.SecondaryFont).Width - Margin.Left, Offset.Y + 1.5f * Margin.Top, drawFormat);
 
             drawFormat.Dispose();

@@ -89,5 +89,13 @@ namespace ControlLibrary.DrawComponents
 
             return InputResult.Bubble;
         }
+
+        protected override void OnReposition(Point repositionDelta)
+        {
+            foreach (DrawComponent drawComponent in _drawComponents)
+            {
+                drawComponent.Offset = new Point(drawComponent.Offset.X + repositionDelta.X, drawComponent.Offset.Y + repositionDelta.Y);
+            }
+        }
     }
 }
