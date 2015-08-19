@@ -25,6 +25,8 @@ namespace ControlLibrary.DrawComponents
 
         public void AddChild(DrawComponent drawComponent)
         {
+            drawComponent.ParentContainer = this;
+
             drawComponent.Offset = new Point(drawComponent.Offset.X, _heightOfAllChildren);
             drawComponent.Size   = new Size(Size.Width, drawComponent.Size.Height);
 
@@ -34,9 +36,23 @@ namespace ControlLibrary.DrawComponents
             _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
         }
 
-        public void ClearChildren(DrawComponent drawComponent)
+        public void ClearChildren()
         {
             _drawComponents.Clear();
+        }
+
+        public void RecalculateComponentsLayout()
+        {
+            // find out which element caused change and change all following ones
+
+            //DrawComponent[] originalComponents = new DrawComponent[_drawComponents.Count];
+            //_drawComponents.CopyTo(originalComponents);
+
+            //ClearChildren();
+            //_heightOfAllChildren = 0;
+
+            //foreach (DrawComponent component in originalComponents)
+            //    AddChild(component);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
@@ -77,6 +93,7 @@ namespace ControlLibrary.DrawComponents
 
         private void SetContentOffset(int contentOffset)
         {
+            ///////////////////////////////////////////
             // prevents scrolling past content borders
             if (_scrollOffset + contentOffset > 0)
             {

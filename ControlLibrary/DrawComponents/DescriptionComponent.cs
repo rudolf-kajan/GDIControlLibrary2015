@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace ControlLibrary.DrawComponents
 {
-    class DescriptionComponent : DrawComponent
+    class DescriptionComponent : DrawComponent, IInputEnabled
     {
         public string TextLabel { get; set; }
         public string TextValue { get; set; }
 
         public DescriptionComponent()
         {
-            Size = new Size(Size.Width, 196);
+            Size = new Size(Size.Width, 96);
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
@@ -26,6 +26,17 @@ namespace ControlLibrary.DrawComponents
                 new RectangleF(Margin.Left, Offset.Y + 3 * Margin.Top, Size.Width - Margin.Left, Size.Height - 3 * Margin.Top));
 
             drawFormat.Dispose();
+        }
+
+        public InputResult OnInput(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args)
+        {
+            if(inputType != InputType.Click)
+                return InputResult.Bubble;
+
+            Size = Size.Height == 96 ? new Size(Size.Width, 196) : new Size(Size.Width, 96);
+            ParentContainer.RecalculateComponentsLayout();
+
+            return InputResult.Consumed;
         }
     }
 }

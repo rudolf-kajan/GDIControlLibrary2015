@@ -25,7 +25,8 @@ namespace ControlLibrary.DrawComponents
     public interface IComponentContainer
     {
         void AddChild(DrawComponent drawComponent);
-        void ClearChildren(DrawComponent drawComponent);
+        void ClearChildren();
+        void RecalculateComponentsLayout();
     }
 
 
@@ -59,6 +60,8 @@ namespace ControlLibrary.DrawComponents
             get { return _margin; }
             set { _margin = value; OnRemargin(); }
         }
+
+        public IComponentContainer ParentContainer;
 
         protected virtual void OnResize() { }
 
