@@ -29,10 +29,6 @@ namespace ControlLibrary.DrawComponents
                  toggleImage.Width / 4,                             // Width
                  toggleImage.Height / 4));                          // Height
 
-            //if(IsFocused)
-            //    pe.Graphics.FillRectangle(skin.AccentColor, 
-            //        new Rectangle( Offset.X + Margin.Left, Offset.Y + Size.Height - 2, Size.Width - (Margin.Left + Margin.Right), 2));
-
             if (IsFocused)
                 pe.Graphics.FillRectangle(skin.AccentColor,
                     new Rectangle(Offset.X + 2, Offset.Y + Margin.Top, 2, Size.Height - (Margin.Bottom + Margin.Top) ));
