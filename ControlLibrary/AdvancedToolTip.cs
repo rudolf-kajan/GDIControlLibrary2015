@@ -50,7 +50,7 @@ namespace ControlLibrary
             // apply basic formatting in the form of vertical stack
             VerticalStack verticalStack = new VerticalStack(new Size(Width, 400));
 
-            verticalStack.AddChild(new HeaderComponent());
+            //verticalStack.AddChild(new HeaderComponent());
 
             verticalStack.AddChild(new ToggleComponent
             {

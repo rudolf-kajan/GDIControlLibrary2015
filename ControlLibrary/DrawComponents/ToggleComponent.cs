@@ -31,7 +31,7 @@ namespace ControlLibrary.DrawComponents
 
             if (IsFocused)
                 pe.Graphics.FillRectangle(skin.AccentColor,
-                    new Rectangle(Offset.X + 2, Offset.Y + Margin.Top, 2, Size.Height - (Margin.Bottom + Margin.Top) ));
+                    new Rectangle(Offset.X, Offset.Y + Margin.Top, 2, Size.Height - (Margin.Bottom + Margin.Top) ));
 
             drawFormat.Dispose();
         }
