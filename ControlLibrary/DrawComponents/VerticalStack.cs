@@ -57,8 +57,7 @@ namespace ControlLibrary.DrawComponents
             }
 
             _scrollOffset = 0;            
-            SetContentOffset(0);
-
+            //SetContentOffset(0);
             SetContentOffset(oldScrollOffset);
 
             _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
