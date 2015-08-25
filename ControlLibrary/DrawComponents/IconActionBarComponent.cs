@@ -49,5 +49,10 @@ namespace ControlLibrary.DrawComponents
 
             return InputResult.Bubble;
         }
+
+        public void ChangeFocus(bool isFocused)
+        {
+            IsFocused = isFocused;
+        }
     }
 }

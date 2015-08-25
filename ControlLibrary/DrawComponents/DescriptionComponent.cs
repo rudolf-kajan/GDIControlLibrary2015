@@ -23,7 +23,7 @@ namespace ControlLibrary.DrawComponents
 
             pe.Graphics.DrawString(TextLabel, skin.PrimaryFont, skin.PrimaryFontColor, Margin.Left, Offset.Y + Margin.Top, drawFormat);
             pe.Graphics.DrawString(TextValue, skin.SecondaryFont, skin.SecondaryFontColor,
-                new RectangleF(Margin.Left, Offset.Y + 3 * Margin.Top, Size.Width - Margin.Left, Size.Height - 3 * Margin.Top));
+                new RectangleF(Margin.Left, Offset.Y + 3 * Margin.Top, Size.Width - (Margin.Left+Margin.Right), Size.Height - 3 * Margin.Top));
 
             drawFormat.Dispose();
         }
@@ -37,6 +37,11 @@ namespace ControlLibrary.DrawComponents
             ParentContainer.RecalculateComponentsLayout();
 
             return InputResult.Consumed;
+        }
+
+        public void ChangeFocus(bool isFocused)
+        {
+            IsFocused = isFocused;
         }
     }
 }

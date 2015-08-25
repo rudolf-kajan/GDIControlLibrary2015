@@ -54,6 +54,9 @@ namespace ControlLibrary.DrawComponents
             return InputResult.Consumed;
         }
 
-        
+        public void ChangeFocus(bool isFocused)
+        {
+            IsFocused = isFocused;
+        }
     }
 }

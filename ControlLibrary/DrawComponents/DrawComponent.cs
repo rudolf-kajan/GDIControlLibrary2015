@@ -20,6 +20,8 @@ namespace ControlLibrary.DrawComponents
     public interface IInputEnabled
     {
         InputResult OnInput(InputType inputType, MouseEventArgs beginArgs, MouseEventArgs endArgs, object args);
+
+        void ChangeFocus(bool isFocused);
     }
 
     public interface IComponentContainer
@@ -36,6 +38,8 @@ namespace ControlLibrary.DrawComponents
     /// </summary>
     public abstract class DrawComponent
     {
+        protected bool IsFocused;
+        
         private Size _size;
         public Size Size
         {

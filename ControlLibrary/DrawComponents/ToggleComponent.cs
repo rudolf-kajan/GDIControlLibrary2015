@@ -24,10 +24,18 @@ namespace ControlLibrary.DrawComponents
             Image toggleImage = ToggleState == ToggleStateEnum.On ? Resource.toggle_on : Resource.toggle_off;
 
             pe.Graphics.DrawImage(toggleImage, new Rectangle
-                (Size.Width - toggleImage.Width / 4 - Margin.Right,   // X
-                 Offset.Y + Margin.Top,                          // Y
-                 toggleImage.Width / 4,                               // Width
-                 toggleImage.Height / 4));                            // Height
+                (Size.Width - toggleImage.Width / 4 - Margin.Right, // X
+                 Offset.Y + Margin.Top,                             // Y
+                 toggleImage.Width / 4,                             // Width
+                 toggleImage.Height / 4));                          // Height
+
+            //if(IsFocused)
+            //    pe.Graphics.FillRectangle(skin.AccentColor, 
+            //        new Rectangle( Offset.X + Margin.Left, Offset.Y + Size.Height - 2, Size.Width - (Margin.Left + Margin.Right), 2));
+
+            if (IsFocused)
+                pe.Graphics.FillRectangle(skin.AccentColor,
+                    new Rectangle(Offset.X + 2, Offset.Y + Margin.Top, 2, Size.Height - (Margin.Bottom + Margin.Top) ));
 
             drawFormat.Dispose();
         }
@@ -44,6 +52,11 @@ namespace ControlLibrary.DrawComponents
             }
 
             return InputResult.Bubble;
+        }
+
+        public void ChangeFocus(bool isFocused)
+        {
+            IsFocused = isFocused;
         }
     }
 }

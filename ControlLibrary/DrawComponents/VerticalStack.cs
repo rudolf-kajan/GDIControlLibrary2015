@@ -41,9 +41,12 @@ namespace ControlLibrary.DrawComponents
             _drawComponents.Clear();
         }
 
+        /// <summary>
+        /// Called when child element changes its size.
+        /// Recalculates every other child.
+        /// </summary>
         public void RecalculateComponentsLayout()
         {
-            int oldheightOfAllChildren = _heightOfAllChildren;
             int oldScrollOffset = _scrollOffset;
 
             _drawComponents.Sort((dc1, dc2) => dc1.Offset.Y.CompareTo(dc2.Offset.Y));
@@ -52,12 +55,11 @@ namespace ControlLibrary.DrawComponents
 
             foreach (DrawComponent stackedComponent in _drawComponents)
             {
-                stackedComponent.Offset = new Point(stackedComponent.Offset.X, Offset.Y + _heightOfAllChildren); //Offset.Y +
+                stackedComponent.Offset = new Point(stackedComponent.Offset.X, Offset.Y + _heightOfAllChildren);
                 _heightOfAllChildren += stackedComponent.Size.Height;
             }
 
-            _scrollOffset = 0;            
-            //SetContentOffset(0);
+            _scrollOffset = 0;
             SetContentOffset(oldScrollOffset);
 
             _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
@@ -80,7 +82,11 @@ namespace ControlLibrary.DrawComponents
                     InputResult result = (drawComponent as IInputEnabled).OnInput(inputType, beginArgs, endArgs, args);
 
                     if (result == InputResult.Consumed)
+                    {
+                        FocusOn((drawComponent as IInputEnabled));
                         return InputResult.Consumed;
+                    }
+                        
                 }
             }
 
@@ -97,6 +103,17 @@ namespace ControlLibrary.DrawComponents
             }
 
             return InputResult.Bubble;
+        }
+
+        private void FocusOn(IInputEnabled component)
+        {
+            foreach (DrawComponent drawComponent in _drawComponents)
+                (drawComponent as IInputEnabled)?.ChangeFocus((drawComponent as IInputEnabled) == component);
+        }
+
+        public void ChangeFocus(bool isFocused)
+        {
+            IsFocused = isFocused;
         }
 
         private void SetContentOffset(int contentOffset)
@@ -120,6 +137,11 @@ namespace ControlLibrary.DrawComponents
                 drawComponent.Offset = new Point(drawComponent.Offset.X, drawComponent.Offset.Y + contentOffset);
         }
 
+        /// <summary>
+        /// Called when whole Stack is moved within another stack. 
+        /// Not used for repositioning of individual children.
+        /// </summary>
+        /// <param name="repositionDelta">Difference in vertical offset</param>
         protected override void OnReposition(Point repositionDelta)
         {
             foreach (DrawComponent drawComponent in _drawComponents)
