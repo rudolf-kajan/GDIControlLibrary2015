@@ -43,22 +43,23 @@ namespace ControlLibrary.DrawComponents
 
         public void RecalculateComponentsLayout()
         {
+            int oldheightOfAllChildren = _heightOfAllChildren;
+            int oldScrollOffset = _scrollOffset;
 
             _drawComponents.Sort((dc1, dc2) => dc1.Offset.Y.CompareTo(dc2.Offset.Y));
-
-            int oldheightOfAllChildren = _heightOfAllChildren;
 
             _heightOfAllChildren = 0;
 
             foreach (DrawComponent stackedComponent in _drawComponents)
             {
-                stackedComponent.Offset = new Point(stackedComponent.Offset.X, Offset.Y + _heightOfAllChildren);
+                stackedComponent.Offset = new Point(stackedComponent.Offset.X, Offset.Y + _heightOfAllChildren); //Offset.Y +
                 _heightOfAllChildren += stackedComponent.Size.Height;
             }
 
-            //_scrollOffset -= _heightOfAllChildren - oldheightOfAllChildren;
-            _scrollOffset = 0;
+            _scrollOffset = 0;            
             SetContentOffset(0);
+
+            SetContentOffset(oldScrollOffset);
 
             _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
         }
