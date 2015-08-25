@@ -28,7 +28,7 @@ namespace ControlLibrary.DrawComponents
             drawComponent.ParentContainer = this;
 
             drawComponent.Offset = new Point(drawComponent.Offset.X, _heightOfAllChildren);
-            drawComponent.Size   = new Size(Size.Width, drawComponent.Size.Height);
+            drawComponent.Size = new Size(Size.Width, drawComponent.Size.Height);
 
             _drawComponents.Add(drawComponent);
             _heightOfAllChildren += drawComponent.Size.Height;
@@ -43,22 +43,26 @@ namespace ControlLibrary.DrawComponents
 
         public void RecalculateComponentsLayout()
         {
-            // find out which element caused change and change all following ones
 
-            //DrawComponent[] originalComponents = new DrawComponent[_drawComponents.Count];
-            //_drawComponents.CopyTo(originalComponents);
+            _drawComponents.Sort((dc1, dc2) => dc1.Offset.Y.CompareTo(dc2.Offset.Y));
 
-            //ClearChildren();
-            //_heightOfAllChildren = 0;
+            _heightOfAllChildren = 0;
 
-            //foreach (DrawComponent component in originalComponents)
-            //    AddChild(component);
+            foreach (DrawComponent stackedComponent in _drawComponents)
+            {
+                stackedComponent.Offset = new Point(stackedComponent.Offset.X, _heightOfAllChildren);
+                stackedComponent.Size = new Size(Size.Width, stackedComponent.Size.Height);
+                _heightOfAllChildren += stackedComponent.Size.Height;
+            }
+
+
+            _drawComponents.Sort((dc1, dc2) => dc1.ZOrder.CompareTo(dc2.ZOrder));
         }
 
         public override void OnPaint(PaintEventArgs pe, ISkinProvider skin)
         {
             pe.Graphics.FillRectangle(skin.Background, new Rectangle(Offset.X, Offset.Y, Size.Width, Size.Height));
-            
+
             foreach (DrawComponent drawComponent in _drawComponents)
                 drawComponent.OnPaint(pe, skin);
         }
